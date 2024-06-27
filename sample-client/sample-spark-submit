@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+spark-submit \
+        --master spark://"${SPARK_MASTER_URL}":7077 \
+        --archives pyspark_venv.tar.gz#environment \
+        --jars /opt/sample-code/jars/snowflake-jdbc-3.16.1.jar,/opt/sample-code/jars/spark-snowflake_2.12-2.16.0-spark_3.4.jar \
+        ./sample-python-code.py
+

@@ -1,0 +1,27 @@
+services:
+  spark-master:
+    build: ./spark-master
+    container_name: spark-master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    labels:
+      com.project.description: "A spark master container"
+
+  spark-worker:
+    build: ./spark-worker
+    container_name: spark-worker
+    ports:
+      - "8081:8081"
+    depends_on:
+      - spark-master
+    labels:
+      com.project.description: "A spark worker container"
+
+  sample-client:
+    build: ./sample-client
+    container_name: spark-ttyd
+    ports:
+      - "7681:7681"
+    labels:
+      com.project.description: "Container with an interactive web shell. Access via port above and run something along lines of `pyspark --master spark://spark-master:7077`"
